@@ -16,3 +16,5 @@ Q.2-2
 (5)TIME
 (6)INTEGER
 (7)CHAR
+
+基本的にはVARCHAR型を業務では使用している
