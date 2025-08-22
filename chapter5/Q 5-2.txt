@@ -21,6 +21,42 @@ cn ：中国
 fr ：フランス
 vn ：ベトナム
 
+
+【メモ】
+更新する → UPDATE
+UPDATE 回答者 SET 国名 = 値1・・ってかんじにしていけばいいのでは！
+
+UPDATE 回答者 SET 国名 = 日本
+WHERE メールアドレス LIKE "%.jp%"
+UPDATE 回答者 SET 国名 = イギリス
+WHERE メールアドレス LIKE "%.uk%"
+・・・
+
+【回答】
+これだと1つのSQL文ではない…
+→CASEつかう！
+
+UPDATE 回答者 
+SET 国名 = CASE メールアドレス 
+  WHEN 'jp' THEN '日本'
+  WHEN 'uk' THEN 'イギリス'
+  WHEN 'cn' THEN '中国'
+  WHEN 'fr' THEN 'フランス'
+  WHEN 'vn' THEN 'ベトナム'
+END
+
+【解答】
+UPDATE 回答者 
+SET 国名 = CASE SUBSTRING(TRIM(メールアドレス),LENGTH(TRIM(メールアドレス))-1,2) 
+  WHEN 'jp' THEN '日本'
+  WHEN 'uk' THEN 'イギリス'
+  WHEN 'cn' THEN '中国'
+  WHEN 'fr' THEN 'フランス'
+  WHEN 'vn' THEN 'ベトナム'
+END
+
+=======================================================================================
+
 2.
 メールアドレスと住所、年齢を一覧表示する。ただし、次の条件を満たした形式で表示すること。
 (1) メールアドレスの余分な空白は除去する。
@@ -28,3 +64,49 @@ vn ：ベトナム
 ただし、20〜50代の考慮すればよい。
 例） 50代：戸建て
   　 20代：戸建て
+
+
+【メモ】
+メールアドレスと住所、年齢を一覧表示 → SELECT メールアドレス,住所,年齢 FROM 回答者
+余分な空白は除去 → TRIMを使用
+SELECT TRIM(メールアドレス) AS メールアドレス, 住所,年齢 FROM 回答者
+
+年齢表示
+年齢 → BETWEENで表示
+
+CASE 
+    WHEN 年齢 BETWEEN 20 AND 29 THEN '20代'
+    WHEN 年齢 BETWEEN 30 AND 39 THEN '30代'
+    WHEN 年齢 BETWEEN 40 AND 49 THEN '40代'
+    WHEN 年齢 BETWEEN 50 AND 59 THEN '50代'
+END
+
+次は「：」で区切る必要があるため、追加
+→ || ':' ||
+
+住所をまとめよう！
+CASE 住所 
+  WHEN 'C' THEN '集合住宅'
+  WHEN 'D' THEN '戸建て'
+END 
+
+住所と年齢は1つの項目とし、見出しを「属性」とする。
+→ ASを使う
+
+
+【回答】
+SELECT TRIM(メールアドレス) 
+AS メールアドレス, 住所,年齢 
+CASE 
+    WHEN 年齢 BETWEEN 20 AND 29 THEN '20代'
+    WHEN 年齢 BETWEEN 30 AND 39 THEN '30代'
+    WHEN 年齢 BETWEEN 40 AND 49 THEN '40代'
+    WHEN 年齢 BETWEEN 50 AND 59 THEN '50代'
+END
+|| ':' ||
+CASE 住所 
+  WHEN 'C' THEN '集合住宅'
+  WHEN 'D' THEN '戸建て'
+END 
+AS 属性　
+FROM 回答者
