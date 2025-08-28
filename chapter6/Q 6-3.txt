@@ -1,0 +1,45 @@
+次の SQL 文のうち、集計関数の原則に照らし合わせるとエラーになるものを選択してください。
+なお、販売履歴テーブルには、ID、日付、商品名、商品区分、価格の列があるものとします。
+
+1. SELECT COUNT(*) FROM 販売履歴
+2. SELECT 商品名, COUNT(*) FROM 販売履歴
+3. SELECT COUNT(*) FROM 販売履歴 GROUP BY 商品名
+4. SELECT 商品名, COUNT(*) FROM 販売履歴 GROUP BY 商品名
+5. SELECT 商品区分, 商品名, COUNT(*) FROM 販売履歴 GROUP BY 商品名
+6. SELECT 商品区分, 商品名, COUNT(*) FROM 販売履歴 
+   GROUP BY 商品区分, 商品名 
+   HAVING AVG(価格) >= 10000
+
+
+テーブルこんな感じだろうか…わからんすぎる
+
+販売履歴テーブル
+| 列名 | データ型        | 備考          |
+| ---- | ----------- | ------------------ |
+| ID   | INT型?         | 主キー、一意の識別子 |
+| 日付   | DATE型        | 販売日            |
+| 商品名  | VARCHAR型 | 商品の名前        |
+| 商品区分 | VARCHAR型 | 商品カテゴリ　　　|
+| 価格   | INT型?      | 商品の価格（円）  　|
+
+
+1. SELECT COUNT(*) FROM 販売履歴
+→　いけるはず
+
+2. SELECT 商品名, COUNT(*) FROM 販売履歴
+→　COUNT(*)って集計関数だから、GROUP BYがいる…？
+いける…？無理そう…？
+
+3. SELECT COUNT(*) FROM 販売履歴 GROUP BY 商品名
+→　商品名ごとに行数を数えるっぽい、おそらくいける
+
+4. SELECT 商品名, COUNT(*) FROM 販売履歴 GROUP BY 商品名
+→　商品名ごとに数えて、その商品名と一緒に表示するんかな…
+
+5. SELECT 商品区分, 商品名, COUNT(*) FROM 販売履歴 GROUP BY 商品名
+→　SELECT に 商品区分 があるのに、GROUP BY に含まれていないからダメかもしれない
+
+6. SELECT 商品区分, 商品名, COUNT(*) FROM 販売履歴 
+   GROUP BY 商品区分, 商品名 
+   HAVING AVG(価格) >= 10000
+→　10000円以上の価格の、商品区分 × 商品名グループを表示する
