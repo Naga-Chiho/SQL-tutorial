@@ -25,13 +25,16 @@
 
 1. SELECT COUNT(*) FROM 販売履歴
 →　いけるはず
+ぎょうをカウント
 
 2. SELECT 商品名, COUNT(*) FROM 販売履歴
 →　COUNT(*)って集計関数だから、GROUP BYがいる…？
 いける…？無理そう…？
+商品名ごとに出さなきゃだからGROUP BY
 
 3. SELECT COUNT(*) FROM 販売履歴 GROUP BY 商品名
 →　商品名ごとに行数を数えるっぽい、おそらくいける
+→　selectで商品名
 
 4. SELECT 商品名, COUNT(*) FROM 販売履歴 GROUP BY 商品名
 →　商品名ごとに数えて、その商品名と一緒に表示するんかな…

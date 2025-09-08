@@ -19,15 +19,26 @@ SELECT A1, A2, B1, B2
 FROM A JOIN B
 ON A.A1 = B.B1;
 
+JOINは、複数のテーブルを「共通の列」を使ってつなぎ合わせる仕組み！
+FROM A JOIN B
+→ テーブルAとBを結合
+ON A.A1 = B.B1
+→ Aのa1列と、Bのb1列が同じ値の行だけを組み合わせ！
+
 2.
 SELECT A1, A2, B1, B2
 FROM B JOIN A
-ON B.B2 = A.A1;
+ON B.B2 = A.A1
+
+→Bのb2列とAのa1列が一致する行を結びつける！
 
 3.
 SELECT A1, A2, B1, B2
 FROM B LEFT JOIN A
 ON B.B2 = A.A1;
+
+左側のテーブル（ここではB）を全部残すJOINがLEFT JOIN 
+右側のテーブル（ここではA）に一致する行があれば結合し、なければ右側はNULLを入れて出す。
 
 4.
 SELECT A.A1, C.A2, B1, B2

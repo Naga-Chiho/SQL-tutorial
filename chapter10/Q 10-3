@@ -7,3 +7,36 @@
 | 血液型  | CHAR(2)     | 学生の血液型 → A, B, O, ABのいずれか。不明な場合はNULL |
 | 学部ID | CHAR(1)     | 学部テーブルのID列の値を格納する外部キー                |
 制約やデフォルト値も活用して、このテーブルを生成するDDLを作成してください。
+
+メモ
+学籍番号は主キー → PRIMARY KEY
+名前は確実に存在するものなので、NOT NULL
+生年月日もNOT NULL
+血液型（A, B, O, AB）。不明なら NULL
+学部ID →外部キーなのでREFERENCESを使おう
+
+テーブル作成していくよう
+①テーブル作成
+CREATE TABLE 学生()
+
+②学籍番号・名前・生年月日の定義
+学籍番号 CHAR(8) PRIMARY KEY
+名前 VARCHAR(30) NOT NULL
+生年月日 DATE NOT NULL
+
+③血液型の定義
+血液型 CHAR(2) DEFAULT NULL
+CHECK (血液型 IN ('A', 'B', 'O', 'AB'))
+
+④学部IDの定義
+学部ID CHAR(1) REFERENCES 学部(ID)
+
+これをまとめる
+CREATE TABLE 学生(
+    学籍番号 CHAR(8) PRIMARY KEY,
+    名前 VARCHAR(30) NOT NULL,
+    生年月日 DATE NOT NULL,
+    血液型 CHAR(2) DEFAULT NULL,
+        CHECK (血液型 IN ('A', 'B', 'O', 'AB')),
+    学部ID CHAR(1) REFERENCES 学部(ID),
+)

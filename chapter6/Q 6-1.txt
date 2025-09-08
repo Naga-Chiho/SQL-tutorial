@@ -33,7 +33,7 @@ FROM 都市別気象観測
 GROUP BY 都市名
 
 4.
-SELECT 都市名, AVG(降水量), AVG(最高気温), AVG(最低気温)
+SELECT 月, AVG(降水量), AVG(最高気温), AVG(最低気温)
 FROM 都市別気象観測
 GROUP BY 月
 
@@ -42,6 +42,9 @@ SELECT 都市名, MAX(最高気温)
 FROM 都市別気象観測
 GROUP BY 都市名
 HAVING MAX(最高気温) >= 38
+
+WHEREとHAVING
+
 
 「38度以上を記録した」のとこは
 HAVINGを使用する！！
