@@ -1,0 +1,50 @@
+問題12-1で論理設計を行った各テーブルについて、次の手順で物理設計を行ってください。
+ただし、利用するDBMS製品は任意とし、物理名の命名規則は自由とします。桁数や型を決定するための前提も、自由に想定してください。
+
+適切な型、制約、デフォルト値、インデックスを指定してください。
+①の結果に基づいて、テーブルを生成するDDLを記述してください。
+
+テーブル：4つ
+- 部署　主キー:部署番号
+- 部員　主キー:社員番号
+- 社員　主キー:社員番号
+- 役職　主キー:役職コード
+
+①部署テーブル
+部署番号 CHAR(2) PRIMARY KEY
+部署名 VARCHAR(10) NOT NULL
+
+②部員テーブル
+部署番号　CHAR(2) 外部キー
+社員番号　CHAR(5) 外部キー
+
+③社員テーブル
+社員番号　CHAR(5) PRIMARY KEY
+社員名　VARCHAR(30) NOT NULL
+役職コード CHAR(1) 外部キー
+年齢　INTEGER NOT NULL
+
+④役職テーブル
+役職コード CHAR(1) PRIMARY KEY
+役職名 VARCHAR(40) NOT NULL
+
+これをもとに作成していく
+
+CREATE TABLE 部署(
+    部署番号 CHAR(2) PRIMARY KEY,
+    部署名 VARCHAR(10) NOT NULL,
+)
+CREATE TABLE 部員(
+    部署番号　CHAR(2) REFERENCES 部署(部署番号)
+    社員番号　CHAR(5) REFERENCES 社員(社員番号)
+)
+CREATE TABLE 社員(
+    社員番号　CHAR(5) PRIMARY KEY
+    社員名　VARCHAR(30) NOT NULL
+    役職コード CHAR(1) 外部キー
+    年齢　INTEGER NOT NULL
+)
+CREATE TABLE 役職(
+    役職コード CHAR(1) PRIMARY KEY
+    役職名 VARCHAR(40) NOT NULL
+)

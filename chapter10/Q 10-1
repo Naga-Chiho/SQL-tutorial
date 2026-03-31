@@ -1,0 +1,12 @@
+次のSQL命令の中からDDLに属するものを選んでください。
+ア. SELECT
+イ. DROP TABLE
+ウ. CREATE TABLE
+エ. INSERT
+オ. DELETE
+カ. UPDATE TABLE
+キ. ALTER TABLE
+
+★DDL → データを格納するテーブル自体を作成したり削除したりする
+なので、
+イ、ウ、キ
